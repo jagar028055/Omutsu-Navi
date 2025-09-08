@@ -33,18 +33,72 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     const { RakutenAPI } = await import('../lib/data-fetchers/rakuten-api')
     const rakuten = new RakutenAPI(applicationId)
     
-    const response = await rakuten.searchDiapers({
-      keyword: 'メリーズ',
-      page: 1,
-      sort: '+itemPrice'
-    })
+    // 複数ブランドとキーワードで検索
+    const searchKeywords = [
+      'メリーズ おむつ',
+      'パンパース おむつ', 
+      'ムーニー おむつ',
+      'ゲンキ おむつ',
+      'グーン おむつ',
+      'おむつ テープ',
+      'おむつ パンツ'
+    ]
     
-    if (response.Items && response.Items.length > 0) {
-      console.log(`✅ ビルド時楽天API成功: ${response.Items.length}件取得`)
-      console.log('🔍 楽天APIレスポンス構造:', JSON.stringify(response.Items[0], null, 2))
+    const allResults: any[] = []
+    
+    for (const keyword of searchKeywords) {
+      try {
+        console.log(`🔍 検索キーワード: ${keyword}`)
+        const response = await rakuten.searchDiapers({
+          keyword,
+          page: 1,
+          sort: '+itemPrice'
+        })
+        
+        if (response.Items && response.Items.length > 0) {
+          console.log(`✅ ${keyword}: ${response.Items.length}件取得`)
+          
+          const filteredItems = response.Items
+            .filter((item: any) => item && item.itemName) // 有効なアイテムのみ
+            .filter((item: any) => {
+              // おむつ関連商品のみ
+              const name = item.itemName.toLowerCase()
+              return name.includes('おむつ') || name.includes('オムツ') || 
+                     name.includes('メリーズ') || name.includes('パンパース') || 
+                     name.includes('ムーニー') || name.includes('ゲンキ') || 
+                     name.includes('グーン')
+            })
+            
+          allResults.push(...filteredItems)
+        }
+        
+        // API制限対策：リクエスト間隔を空ける
+        await new Promise(resolve => setTimeout(resolve, 500))
+        
+      } catch (error) {
+        console.warn(`⚠️ ${keyword}の検索でエラー:`, error)
+        continue
+      }
+    }
+    
+    if (allResults.length > 0) {
+      console.log(`✅ 全キーワード合計: ${allResults.length}件取得`)
+      console.log('🔍 楽天APIレスポンス構造:', JSON.stringify(allResults[0], null, 2))
       
-      return response.Items
-        .filter((item: any) => item && item.itemName) // 有効なアイテムのみ
+      // 重複除去（商品コードで判定）
+      const uniqueResults = allResults.reduce((acc: any[], item: any) => {
+        const exists = acc.find(existingItem => 
+          existingItem.itemCode === item.itemCode
+        )
+        if (!exists) {
+          acc.push(item)
+        }
+        return acc
+      }, [])
+      
+      console.log(`✅ 重複除去後: ${uniqueResults.length}件`)
+      
+      return uniqueResults
         .map((item: any) => {
           const rakutenItem = item
           
@@ -198,10 +252,10 @@ export async function collectClientSideData(): Promise<ClientDataResult> {
     result.offers.push(...rakutenOffers)
     result.sources.rakuten = rakutenOffers.length
 
-    // Amazonダミーデータ
-    const amazonOffers = generateAmazonDummyData()
-    result.offers.push(...amazonOffers)
-    result.sources.amazon = amazonOffers.length
+    // Amazon（将来的にYahoo APIに置き換え予定）
+    // const amazonOffers = generateAmazonDummyData()
+    // result.offers.push(...amazonOffers)
+    // result.sources.amazon = amazonOffers.length
 
     // ソート（実質単価順）
     result.offers.sort((a, b) => a.yenPerSheet - b.yenPerSheet)
