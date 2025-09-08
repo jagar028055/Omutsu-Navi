@@ -16,7 +16,7 @@ export class RealDataProvider {
   private lastFetchTime: number = 0
   private cacheDuration = 5 * 60 * 1000 // 5分キャッシュ
 
-  // 実データ取得（クライアントサイド）
+  // 実データ取得（サーバー＆クライアントサイド対応）
   async getRealData(forceRefresh: boolean = false): Promise<CollectedOffer[]> {
     const now = Date.now()
     
@@ -26,7 +26,7 @@ export class RealDataProvider {
     }
 
     try {
-      console.log('🌐 クライアントサイドで実データを取得中...')
+      console.log('🌐 実データを取得中... (サーバー&クライアント対応)')
       const result = await collectClientSideData()
       
       if (result.success && result.offers) {
@@ -35,7 +35,8 @@ export class RealDataProvider {
         console.log(`✅ 実データ取得成功: ${this.realDataCache.length}件`)
         return this.realDataCache
       } else {
-        throw new Error('実データの取得に失敗しました')
+        console.error('❌ 実データの取得に失敗:', result)
+        return []
       }
     } catch (error) {
       console.error('❌ 実データ取得エラー:', error)
@@ -47,18 +48,24 @@ export class RealDataProvider {
   async getOffers(options: RealDataOptions = {}): Promise<SampleOffer[]> {
     const { useRealData = true, brands, sizes, types, maxItems = 50 } = options
 
+    console.log(`🔍 getOffers呼び出し: useRealData=${useRealData}`)
     let offers: SampleOffer[] = []
 
     if (useRealData) {
       try {
         const realOffers = await this.getRealData()
+        console.log(`🔍 getRealData結果: ${realOffers.length}件`)
         if (realOffers.length > 0) {
           offers = this.convertToSampleFormat(realOffers)
-          console.log(`🎯 実データを使用: ${offers.length}件`)
+          console.log(`🎯 実データを使用: ${offers.length}件 (変換後)`)
+        } else {
+          console.log('🔍 実データが0件のためサンプルデータにフォールバック')
         }
       } catch (error) {
-        console.warn('実データ取得に失敗、サンプルデータにフォールバック:', error)
+        console.warn('🔍 実データ取得に失敗、サンプルデータにフォールバック:', error)
       }
+    } else {
+      console.log('🔍 useRealData=falseのためサンプルデータ使用')
     }
 
     // 実データが取得できない場合はサンプルデータを使用
@@ -146,16 +153,15 @@ export class RealDataProvider {
     return storeIds[storeSlug] || 999
   }
 
-  // データ収集状況を取得
+  // データ収集状況を取得（クライアントサイド専用）
   async getDataCollectionStatus() {
     try {
-      const response = await fetch('/api/collect-data')
-      const result = await response.json()
+      const result = await collectClientSideData()
       
       return {
         available: result.success,
-        totalItems: result.data?.totalItems || 0,
-        sources: result.data?.sources || {},
+        totalItems: result.totalItems || 0,
+        sources: result.sources || {},
         lastUpdate: result.timestamp,
         cached: this.realDataCache.length > 0
       }

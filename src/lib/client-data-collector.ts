@@ -30,11 +30,11 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
   // サーバーサイド（ビルド時）の場合：実際のAPIを呼び出し
   try {
     console.log('🏗️ ビルド時に楽天APIから実データを取得中...')
-    const { RakutenAPI } = await import('./data-fetchers/rakuten-api')
+    const { RakutenAPI } = await import('../lib/data-fetchers/rakuten-api')
     const rakuten = new RakutenAPI(applicationId)
     
     const response = await rakuten.searchDiapers({
-      keyword: '紙おむつ パンパース',
+      keyword: 'メリーズ',
       page: 1,
       sort: '+itemPrice'
     })
@@ -44,9 +44,9 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
       console.log('🔍 楽天APIレスポンス構造:', JSON.stringify(response.Items[0], null, 2))
       
       return response.Items
-        .filter((item: any) => item && item.Item) // 有効なアイテムのみ
+        .filter((item: any) => item && item.itemName) // 有効なアイテムのみ
         .map((item: any) => {
-          const rakutenItem = item.Item
+          const rakutenItem = item
           
           // 安全にプロパティを取得
           const itemName = rakutenItem.itemName || '商品名不明'
@@ -61,13 +61,28 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
           const packSizeMatch = itemName.match(/(\d+)枚/)
           const packSize = packSizeMatch ? parseInt(packSizeMatch[1]) : 50
           
+          // ブランドを推定
+          const brand = itemName.match(/(メリーズ|パンパース|ムーニー|ゲンキ|グーン)/)?.[1] || 'その他'
+          
+          // サイズを推定
+          const sizeMatch = itemName.match(/(新生児|NB|S|M|L|XL|ビッグ|大きめ)/i)
+          let size = 'S'
+          if (sizeMatch) {
+            const s = sizeMatch[1].toLowerCase()
+            if (s.includes('新生児') || s === 'nb') size = 'NB'
+            else if (s === 's') size = 'S'
+            else if (s === 'm') size = 'M'
+            else if (s === 'l' || s.includes('ビッグ')) size = 'L'
+            else if (s === 'xl' || s.includes('大きめ')) size = 'XL'
+          }
+          
           const shipping = postageFlag === 1 ? 0 : 300
           const effectivePrice = itemPrice + shipping
           
           return {
             title: itemName,
-            brand: 'ブランド不明',
-            size: 'S',
+            brand: brand,
+            size: size,
             type: 'TAPE',
             packSize,
             price: itemPrice,
@@ -88,12 +103,12 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     }
     
   } catch (error) {
-    console.warn('⚠️ ビルド時楽天API呼び出し失敗:', error)
+    console.error('❌ ビルド時楽天API呼び出し失敗:', error)
+    throw error // エラーを再スローしてフォールバックさせない
   }
   
-  // フォールバック: ダミーデータを使用
-  console.log('📝 フォールバック: ダミーデータを使用')
-  return generateRakutenDummyData()
+  // ここに到達した場合はデータが取得できなかった
+  throw new Error('楽天APIからデータを取得できませんでした')
 }
 
 // ダミーデータ生成（楽天風）
