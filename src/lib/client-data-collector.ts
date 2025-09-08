@@ -34,39 +34,57 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     const rakuten = new RakutenAPI(applicationId)
     
     const response = await rakuten.searchDiapers({
-      keyword: 'おむつ',
+      keyword: '紙おむつ パンパース',
       page: 1,
       sort: '+itemPrice'
     })
     
     if (response.Items && response.Items.length > 0) {
       console.log(`✅ ビルド時楽天API成功: ${response.Items.length}件取得`)
-      return response.Items.map((item: any) => {
-        const rakutenItem = item.Item
-        // 商品名から枚数を抽出
-        const packSizeMatch = rakutenItem.itemName.match(/(\d+)枚/)
-        const packSize = packSizeMatch ? parseInt(packSizeMatch[1]) : 50
-        
-        return {
-          title: rakutenItem.itemName,
-          brand: 'ブランド不明', // 楽天APIからは直接取得できないため
-          size: 'S', // デフォルトサイズ
-          type: 'TAPE', // デフォルトタイプ
-          packSize,
-          price: rakutenItem.itemPrice,
-          shipping: rakutenItem.postageFlag === 1 ? 0 : 300, // 送料込みかどうか
-          pointsPercent: rakutenItem.pointRate || 1.0,
-          taxIncluded: rakutenItem.taxFlag === 1,
-          subscription: false,
-          storeName: rakutenItem.shopName,
-          storeSlug: 'rakuten',
-          sourceUrl: rakutenItem.itemUrl,
-          fetchedAt: new Date(),
-          effectivePrice: rakutenItem.itemPrice + (rakutenItem.postageFlag === 1 ? 0 : 300),
-          pointsYen: Math.round((rakutenItem.pointRate || 1.0) / 100 * rakutenItem.itemPrice),
-          yenPerSheet: (rakutenItem.itemPrice + (rakutenItem.postageFlag === 1 ? 0 : 300)) / packSize
-        }
-      })
+      console.log('🔍 楽天APIレスポンス構造:', JSON.stringify(response.Items[0], null, 2))
+      
+      return response.Items
+        .filter((item: any) => item && item.Item) // 有効なアイテムのみ
+        .map((item: any) => {
+          const rakutenItem = item.Item
+          
+          // 安全にプロパティを取得
+          const itemName = rakutenItem.itemName || '商品名不明'
+          const itemPrice = rakutenItem.itemPrice || 0
+          const shopName = rakutenItem.shopName || '楽天市場'
+          const itemUrl = rakutenItem.itemUrl || 'https://rakuten.co.jp'
+          const postageFlag = rakutenItem.postageFlag || 0
+          const pointRate = rakutenItem.pointRate || 1.0
+          const taxFlag = rakutenItem.taxFlag || 1
+          
+          // 商品名から枚数を抽出
+          const packSizeMatch = itemName.match(/(\d+)枚/)
+          const packSize = packSizeMatch ? parseInt(packSizeMatch[1]) : 50
+          
+          const shipping = postageFlag === 1 ? 0 : 300
+          const effectivePrice = itemPrice + shipping
+          
+          return {
+            title: itemName,
+            brand: 'ブランド不明',
+            size: 'S',
+            type: 'TAPE',
+            packSize,
+            price: itemPrice,
+            shipping,
+            pointsPercent: pointRate,
+            taxIncluded: taxFlag === 1,
+            subscription: false,
+            storeName: shopName,
+            storeSlug: 'rakuten',
+            sourceUrl: itemUrl,
+            fetchedAt: new Date(),
+            effectivePrice,
+            pointsYen: Math.round(pointRate / 100 * effectivePrice),
+            yenPerSheet: effectivePrice / packSize
+          }
+        })
+        .filter(item => item.price > 0) // 価格が0のアイテムを除外
     }
     
   } catch (error) {

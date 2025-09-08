@@ -84,6 +84,7 @@ export class RakutenAPI {
       page,
       hits: 30,
       sort,
+      genreId: '200807', // ベビー・キッズ・マタニティ > おむつ・トイレ・衛生用品
       ...(minPrice && { minPrice }),
       ...(maxPrice && { maxPrice }),
       formatVersion: 2
