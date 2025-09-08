@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import OfferCard from './OfferCard';
-import { getOffers } from '@/lib/api';
-import { getStaticOffers } from '@/lib/static-data';
+import { getFilteredOffers, getProductStats } from '@/lib/sample-data';
 
 type OfferRankingProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -16,15 +15,14 @@ export default function OfferRanking() {
     limitedPointFactor: 1.0,
     includeSubscription: false,
     sort: 'cpp' as 'cpp' | 'total' | 'updated',
-    page: 1,
-    per: 20,
   };
 
   try {
-    // 静的サイト用: 直接データを取得
-    const offersData = getStaticOffers(filters);
+    // サンプルデータを取得
+    const offers = getFilteredOffers(filters);
+    const stats = getProductStats();
     
-    if (!offersData.items || offersData.items.length === 0) {
+    if (!offers || offers.length === 0) {
       return (
         <div className="bg-white rounded-lg shadow p-8 text-center">
           <div className="text-gray-400 mb-4">
@@ -44,34 +42,31 @@ export default function OfferRanking() {
 
     return (
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">
-            価格ランキング
-          </h2>
-          <div className="text-sm text-gray-600">
-            {offersData.meta.total || 0}件の商品が見つかりました
+        <div className="card-pop rounded-mama p-6 mb-6 bg-gradient-to-r from-pink-100 to-purple-100">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold text-mama-primary">
+              💰 価格ランキング 💰
+            </h2>
+            <div className="text-right">
+              <div className="text-sm font-semibold text-mama-secondary">
+                {offers.length}件の商品が見つかりました
+              </div>
+              <div className="text-xs text-gray-600 mt-1">
+                📦 {stats.productCount}商品 🏪 {stats.storeCount}ストア
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="space-y-4">
-          {offersData.items.map((offer, index) => (
+          {offers.map((offer, index) => (
             <OfferCard 
               key={offer.id}
               offer={offer}
-              rank={index + 1 + (offersData.meta.page - 1) * offersData.meta.per}
+              rank={index + 1}
             />
           ))}
         </div>
-
-        {(offersData.meta.total || 0) > offersData.meta.per && (
-          <div className="mt-8 flex justify-center">
-            <Pagination 
-              currentPage={offersData.meta.page}
-              totalItems={offersData.meta.total || 0}
-              itemsPerPage={offersData.meta.per}
-            />
-          </div>
-        )}
       </div>
     );
   } catch (error) {
