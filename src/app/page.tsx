@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import OfferRanking from '@/components/OfferRanking';
 import FilterPanel from '@/components/FilterPanel';
+import DataSourceIndicator from '@/components/DataSourceIndicator';
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
           </div>
           
           <div className="lg:col-span-3 mt-8 lg:mt-0">
+            <DataSourceIndicator />
             <Suspense fallback={<div className="text-center py-8">読み込み中...</div>}>
               <OfferRanking />
             </Suspense>

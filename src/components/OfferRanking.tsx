@@ -1,12 +1,13 @@
 import { Suspense } from 'react';
 import OfferCard from './OfferCard';
 import { getFilteredOffers, getProductStats } from '@/lib/sample-data';
+import { getOffersWithRealData } from '@/lib/real-data-provider';
 
 type OfferRankingProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default function OfferRanking() {
+export default async function OfferRanking() {
   const filters = {
     size: undefined,
     type: undefined,
@@ -18,8 +19,14 @@ export default function OfferRanking() {
   };
 
   try {
-    // サンプルデータを取得
-    const offers = getFilteredOffers(filters);
+    // 実データを優先、取得できない場合はサンプルデータ
+    const offers = await getOffersWithRealData({
+      useRealData: true,
+      brands: filters.brand ? [filters.brand] : undefined,
+      sizes: filters.size ? [filters.size] : undefined,
+      types: filters.type ? [filters.type] : undefined,
+      maxItems: 30
+    });
     const stats = getProductStats();
     
     if (!offers || offers.length === 0) {
