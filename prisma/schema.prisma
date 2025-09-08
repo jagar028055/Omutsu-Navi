@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProductType {
+  TAPE
+  PANTS
+}
+
+enum ProductSize {
+  NB
+  S
+  M
+  L
+  XL
+}
+
+enum PointsBase {
+  PRE_COUPON
+  POST_COUPON
+}
+
+model Product {
+  id           Int         @id @default(autoincrement())
+  brand        String
+  series       String
+  type         ProductType
+  size         ProductSize
+  packSizeMin  Int         @map("pack_size_min")
+  gtin         String?
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  
+  offers Offer[]
+
+  @@unique([brand, series, type, size])
+  @@map("products")
+}
+
+model Store {
+  id                Int    @id @default(autoincrement())
+  name              String @unique
+  slug              String @unique
+  affiliateProgram  String? @map("affiliate_program")
+  rulesetId         String? @map("ruleset_id")
+  priority          Int    @default(100)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  
+  offers Offer[]
+  clickEvents ClickEvent[]
+
+  @@map("stores")
+}
+
+model Offer {
+  id              Int       @id @default(autoincrement())
+  productId       Int       @map("product_id")
+  storeId         Int       @map("store_id")
+  title           String
+  packCount       Int       @map("pack_count")
+  price           Int
+  coupon          Int       @default(0)
+  shipping        Int       @default(0)
+  pointsPercent   Float?    @map("points_percent")
+  pointsFixed     Int?      @map("points_fixed")
+  pointsBase      PointsBase @default(POST_COUPON) @map("points_base")
+  pointsNote      String?   @map("points_note")
+  taxIncluded     Boolean   @default(true) @map("tax_included")
+  isSubscription  Boolean   @default(false) @map("is_subscription")
+  sourceUrl       String    @map("source_url")
+  fetchedAt       DateTime  @map("fetched_at")
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  product Product @relation(fields: [productId], references: [id])
+  store   Store   @relation(fields: [storeId], references: [id])
+  
+  calcSnapshots CalcSnapshot[]
+  coupons       Coupon[]
+  clickEvents   ClickEvent[]
+
+  @@unique([productId, storeId])
+  @@map("offers")
+}
+
+model CalcSnapshot {
+  id             Int      @id @default(autoincrement())
+  offerId        Int      @map("offer_id")
+  effectiveTotal Int      @map("effective_total")
+  yenPerSheet    Float    @map("yen_per_sheet")
+  pointsYen      Int      @map("points_yen")
+  calcPolicyId   Int      @map("calc_policy_id")
+  rankBucket     String   @default("active") @map("rank_bucket")
+  calcAt         DateTime @default(now()) @map("calc_at")
+  
+  offer      Offer      @relation(fields: [offerId], references: [id])
+  calcPolicy CalcPolicy @relation(fields: [calcPolicyId], references: [id])
+
+  @@unique([offerId, calcPolicyId])
+  @@map("calc_snapshots")
+}
+
+model CalcPolicy {
+  id                    Int     @id @default(autoincrement())
+  includePoints         Boolean @default(true) @map("include_points")
+  limitedPointFactor    Float   @default(1.0) @map("limited_point_factor")
+  includeSubscription   Boolean @default(false) @map("include_subscription")
+  name                  String  @unique
+  isDefault             Boolean @default(false) @map("is_default")
+  createdAt             DateTime @default(now()) @map("created_at")
+  
+  calcSnapshots CalcSnapshot[]
+
+  @@map("calc_policies")
+}
+
+model Coupon {
+  id           Int       @id @default(autoincrement())
+  offerId      Int       @map("offer_id")
+  couponAmount Int       @map("coupon_amount")
+  couponCode   String?   @map("coupon_code")
+  expiresAt    DateTime? @map("expires_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  
+  offer Offer @relation(fields: [offerId], references: [id])
+
+  @@map("coupons")
+}
+
+model ClickEvent {
+  id          Int      @id @default(autoincrement())
+  offerId     Int      @map("offer_id")
+  storeId     Int      @map("store_id")
+  affLink     String   @map("aff_link")
+  userSession String?  @map("user_session")
+  clickedAt   DateTime @default(now()) @map("clicked_at")
+  utmSource   String?  @map("utm_source")
+  utmMedium   String?  @map("utm_medium")
+  utmCampaign String?  @map("utm_campaign")
+  
+  offer Offer @relation(fields: [offerId], references: [id])
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@map("click_events")
+}
