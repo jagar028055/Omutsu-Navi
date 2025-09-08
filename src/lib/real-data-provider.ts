@@ -79,17 +79,26 @@ export class RealDataProvider {
     }
 
     // フィルタリング適用
+    console.log(`🔍 フィルタリング前: ${offers.length}件`)
     if (brands?.length) {
+      console.log(`🔍 ブランドフィルタ: ${brands}`)
       offers = offers.filter(offer => brands.includes(offer.product.brand))
+      console.log(`🔍 ブランドフィルタ後: ${offers.length}件`)
     }
     if (sizes?.length) {
+      console.log(`🔍 サイズフィルタ: ${sizes}`)
       offers = offers.filter(offer => sizes.includes(offer.product.size))
+      console.log(`🔍 サイズフィルタ後: ${offers.length}件`)
     }
     if (types?.length) {
+      console.log(`🔍 タイプフィルタ: ${types}`)
       offers = offers.filter(offer => types.includes(offer.product.type))
+      console.log(`🔍 タイプフィルタ後: ${offers.length}件`)
     }
 
-    return offers.slice(0, maxItems)
+    const finalOffers = offers.slice(0, maxItems)
+    console.log(`🔍 最終表示件数: ${finalOffers.length}件 (maxItems: ${maxItems})`)
+    return finalOffers
   }
 
   // 実データをSampleOffer形式に変換（安全な変換）

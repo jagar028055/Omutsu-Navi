@@ -25,7 +25,7 @@ export default async function OfferRanking() {
       brands: filters.brand ? [filters.brand] : undefined,
       sizes: filters.size ? [filters.size] : undefined,
       types: filters.type ? [filters.type] : undefined,
-      maxItems: 30
+      maxItems: 50
     });
     const stats = getProductStats();
     
