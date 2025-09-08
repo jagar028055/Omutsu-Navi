@@ -85,41 +85,54 @@ export class RealDataProvider {
     return offers.slice(0, maxItems)
   }
 
-  // 実データをSampleOffer形式に変換
+  // 実データをSampleOffer形式に変換（安全な変換）
   private convertToSampleFormat(realOffers: CollectedOffer[]): SampleOffer[] {
-    return realOffers.map((offer, index) => ({
-      id: index + 1000, // 実データは1000番台のIDを使用
-      title: offer.title,
-      packCount: 1,
-      price: offer.price,
-      coupon: offer.coupon || 0,
-      shipping: offer.shipping,
-      pointsPercent: offer.pointsPercent || null,
-      pointsFixed: offer.pointsFixed || null,
-      pointsNote: offer.pointsPercent ? `${offer.pointsPercent}%ポイント還元` : null,
-      taxIncluded: offer.taxIncluded,
-      isSubscription: offer.subscription,
-      sourceUrl: offer.sourceUrl,
-      fetchedAt: offer.fetchedAt,
-      store: {
-        id: this.getStoreId(offer.storeSlug),
-        name: offer.storeName,
-        slug: offer.storeSlug
-      },
-      product: {
-        id: index + 2000,
-        brand: offer.brand,
-        series: offer.series || 'スタンダード',
-        type: offer.type,
-        size: offer.size,
-        packSizeMin: offer.packSize
-      },
-      calcSnapshots: [{
-        effectiveTotal: offer.effectivePrice || offer.price,
-        yenPerSheet: offer.yenPerSheet || 0,
-        pointsYen: offer.pointsYen || 0
-      }]
-    }))
+    return realOffers
+      .filter(offer => offer && typeof offer === 'object') // 有効なオファーのみ
+      .map((offer, index) => {
+        // 安全にプロパティを取得
+        const title = offer.title || 'タイトル不明'
+        const price = offer.price || 0
+        const brand = offer.brand || '不明ブランド'
+        const size = offer.size || 'S'
+        const packSize = offer.packSize || 50
+        const storeName = offer.storeName || '楽天市場'
+        const storeSlug = offer.storeSlug || 'rakuten'
+        
+        return {
+          id: index + 1000, // 実データは1000番台のIDを使用
+          title,
+          packCount: 1,
+          price,
+          coupon: offer.coupon || 0,
+          shipping: offer.shipping || 0,
+          pointsPercent: offer.pointsPercent || null,
+          pointsFixed: offer.pointsFixed || null,
+          pointsNote: offer.pointsPercent ? `${offer.pointsPercent}%ポイント還元` : null,
+          taxIncluded: offer.taxIncluded !== false, // デフォルトtrue
+          isSubscription: offer.subscription || false,
+          sourceUrl: offer.sourceUrl || `https://${storeSlug}.co.jp/`,
+          fetchedAt: offer.fetchedAt || new Date(),
+          store: {
+            id: this.getStoreId(storeSlug),
+            name: storeName,
+            slug: storeSlug
+          },
+          product: {
+            id: index + 2000,
+            brand,
+            series: offer.series || 'スタンダード',
+            type: offer.type || 'TAPE',
+            size,
+            packSizeMin: packSize
+          },
+          calcSnapshots: [{
+            effectiveTotal: offer.effectivePrice || price,
+            yenPerSheet: offer.yenPerSheet || (price / packSize),
+            pointsYen: offer.pointsYen || 0
+          }]
+        }
+      })
   }
 
   private getStoreId(storeSlug: string): number {

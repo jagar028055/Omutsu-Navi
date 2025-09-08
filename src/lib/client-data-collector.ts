@@ -13,24 +13,69 @@ export interface ClientDataResult {
   timestamp: string
 }
 
-// 楽天API（JSONP対応）
+// 楽天API（ビルド時データ取得）- 静的サイト対応
 async function fetchRakutenData(applicationId: string): Promise<any[]> {
-  if (!applicationId) return []
-  
-  try {
-    const keyword = encodeURIComponent('おむつ パンパース')
-    const url = `https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?applicationId=${applicationId}&keyword=${keyword}&hits=10&sort=%2BitemPrice&formatVersion=2`
-    
-    console.log('📦 楽天APIを呼び出し中...')
-    
-    // CORSの問題があるため、実際の実装では別の方法が必要
-    // ここではダミーデータを返す
+  if (!applicationId) {
+    console.log('📝 楽天APIキーが設定されていません - ダミーデータを使用')
     return generateRakutenDummyData()
+  }
+  
+  // 静的サイトではビルド時に実際のAPIを呼び出し、実行時はダミーデータを使用
+  if (typeof window !== 'undefined') {
+    // クライアントサイドの場合：ダミーデータを使用
+    console.log('🌐 クライアントサイドでダミーデータを使用')
+    return generateRakutenDummyData()
+  }
+  
+  // サーバーサイド（ビルド時）の場合：実際のAPIを呼び出し
+  try {
+    console.log('🏗️ ビルド時に楽天APIから実データを取得中...')
+    const { RakutenAPI } = await import('./data-fetchers/rakuten-api')
+    const rakuten = new RakutenAPI(applicationId)
+    
+    const response = await rakuten.searchDiapers({
+      keyword: 'おむつ',
+      page: 1,
+      sort: '+itemPrice'
+    })
+    
+    if (response.Items && response.Items.length > 0) {
+      console.log(`✅ ビルド時楽天API成功: ${response.Items.length}件取得`)
+      return response.Items.map((item: any) => {
+        const rakutenItem = item.Item
+        // 商品名から枚数を抽出
+        const packSizeMatch = rakutenItem.itemName.match(/(\d+)枚/)
+        const packSize = packSizeMatch ? parseInt(packSizeMatch[1]) : 50
+        
+        return {
+          title: rakutenItem.itemName,
+          brand: 'ブランド不明', // 楽天APIからは直接取得できないため
+          size: 'S', // デフォルトサイズ
+          type: 'TAPE', // デフォルトタイプ
+          packSize,
+          price: rakutenItem.itemPrice,
+          shipping: rakutenItem.postageFlag === 1 ? 0 : 300, // 送料込みかどうか
+          pointsPercent: rakutenItem.pointRate || 1.0,
+          taxIncluded: rakutenItem.taxFlag === 1,
+          subscription: false,
+          storeName: rakutenItem.shopName,
+          storeSlug: 'rakuten',
+          sourceUrl: rakutenItem.itemUrl,
+          fetchedAt: new Date(),
+          effectivePrice: rakutenItem.itemPrice + (rakutenItem.postageFlag === 1 ? 0 : 300),
+          pointsYen: Math.round((rakutenItem.pointRate || 1.0) / 100 * rakutenItem.itemPrice),
+          yenPerSheet: (rakutenItem.itemPrice + (rakutenItem.postageFlag === 1 ? 0 : 300)) / packSize
+        }
+      })
+    }
     
   } catch (error) {
-    console.error('楽天API呼び出しエラー:', error)
-    return []
+    console.warn('⚠️ ビルド時楽天API呼び出し失敗:', error)
   }
+  
+  // フォールバック: ダミーデータを使用
+  console.log('📝 フォールバック: ダミーデータを使用')
+  return generateRakutenDummyData()
 }
 
 // ダミーデータ生成（楽天風）

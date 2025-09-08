@@ -71,7 +71,7 @@ export class RakutenAPI {
       sort = '+itemPrice' // 価格昇順
     } = options
 
-    // 検索キーワード構築
+    // 検索キーワード構築（シンプルに）
     let searchKeyword = keyword
     if (brand) searchKeyword += ` ${brand}`
     if (size) searchKeyword += ` ${size}`
@@ -80,7 +80,7 @@ export class RakutenAPI {
 
     const params = {
       applicationId: this.applicationId,
-      keyword: searchKeyword,
+      keyword: searchKeyword.trim(),
       page,
       hits: 30,
       sort,
@@ -90,10 +90,17 @@ export class RakutenAPI {
     }
 
     try {
+      console.log('🔍 楽天APIリクエスト URL:', this.baseUrl)
+      console.log('🔍 楽天APIリクエスト パラメータ:', params)
+      
       const response = await axios.get(this.baseUrl, { params })
+      console.log('✅ 楽天APIレスポンス成功:', response.status)
       return response.data
-    } catch (error) {
-      console.error('楽天API呼び出しエラー:', error)
+    } catch (error: any) {
+      console.error('❌ 楽天API呼び出しエラー:')
+      console.error('Status:', error?.response?.status)
+      console.error('Data:', error?.response?.data)
+      console.error('URL:', error?.config?.url)
       throw error
     }
   }
