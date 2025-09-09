@@ -1,0 +1,354 @@
+
+> omutsu-navi@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.2
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 17.2s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/5) ...
+🔍 getOffers呼び出し: useRealData=true
+🌐 実データを取得中... (サーバー&クライアント対応)
+🚀 クライアントサイドでデータ収集を開始
+🏗️ ビルド時に楽天APIから実データを取得中...
+🔍 検索キーワード: パンパース はじめての肌へのいちばん
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'パンパース はじめての肌へのいちばん',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+(node:11949) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+   Generating static pages (1/5) 
+   Generating static pages (2/5) 
+   Generating static pages (3/5) 
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: パンパース さらさらケア
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'パンパース さらさらケア',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: メリーズ さらさらエアスルー
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'メリーズ さらさらエアスルー',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: メリーズ ファーストプレミアム
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'メリーズ ファーストプレミアム',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ メリーズ ファーストプレミアム: 2件取得
+🚫 除外された商品: メリーズ ファーストプレミアム ビッグサイズ（32枚入）＜メリーズファーストプレミアムビッグ32枚＞ 販売促進商品 販促 景品 イベント用品 法人ギフト 賞品 低額ギフト
+🚫 除外された商品: 敬老の日ギフト 敬老会などに「メリーズ　ファーストプレミアム　パンツ　ビッグサイズ（32枚）」お返し 内祝い 内祝 お祝い 祝い 出産 結婚 仏事 快気 お見舞い 香典返し 新築 ギフト セット
+🔍 検索キーワード: ムーニー エアフィット
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'ムーニー エアフィット',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: ムーニー ナチュラルムーニー
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'ムーニー ナチュラルムーニー',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: ゲンキ アンパンマン
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'ゲンキ アンパンマン',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: グーン まっさらあんしん
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'グーン まっさらあんしん',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: グーン プラス
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'グーン プラス',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ グーン プラス: 1件取得
+✅ 有効な商品: 【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入
+🔍 検索キーワード: おむつ テープ NB
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ テープ NB',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: おむつ テープ S
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ テープ S',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+❌ 楽天API呼び出しエラー:
+Status: 400
+Data: { error_description: 'keyword is not valid', error: 'wrong_parameter' }
+URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+⚠️ おむつ テープ Sの検索でエラー: Error [AxiosError]: Request failed with status code 400
+    at aG (.next/server/chunks/541.js:1:40458)
+    at Unzip.<anonymous> (.next/server/chunks/541.js:3:9314)
+    at bK.request (.next/server/chunks/541.js:3:21252)
+    at async bO.searchDiapers (.next/server/chunks/541.js:3:26950)
+    at async j (.next/server/app/page.js:1:16815)
+    at async k (.next/server/app/page.js:1:19941)
+    at async l.getRealData (.next/server/app/page.js:1:20560)
+    at async l.getOffers (.next/server/app/page.js:1:20979)
+    at async o (.next/server/app/page.js:1:23786) {
+  code: 'ERR_BAD_REQUEST',
+  config: [Object],
+  request: [ClientRequest],
+  response: [Object],
+  status: 400,
+  constructor: [Function],
+  toJSON: [Function: toJSON]
+}
+🔍 検索キーワード: おむつ テープ M
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ テープ M',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+❌ 楽天API呼び出しエラー:
+Status: 400
+Data: { error_description: 'keyword is not valid', error: 'wrong_parameter' }
+URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+⚠️ おむつ テープ Mの検索でエラー: Error [AxiosError]: Request failed with status code 400
+    at aG (.next/server/chunks/541.js:1:40458)
+    at Unzip.<anonymous> (.next/server/chunks/541.js:3:9314)
+    at bK.request (.next/server/chunks/541.js:3:21252)
+    at async bO.searchDiapers (.next/server/chunks/541.js:3:26950)
+    at async j (.next/server/app/page.js:1:16815)
+    at async k (.next/server/app/page.js:1:19941)
+    at async l.getRealData (.next/server/app/page.js:1:20560)
+    at async l.getOffers (.next/server/app/page.js:1:20979)
+    at async o (.next/server/app/page.js:1:23786) {
+  code: 'ERR_BAD_REQUEST',
+  config: [Object],
+  request: [ClientRequest],
+  response: [Object],
+  status: 400,
+  constructor: [Function],
+  toJSON: [Function: toJSON]
+}
+❌ 楽天API呼び出しエラー:
+Status: 400
+Data: { error_description: 'keyword is not valid', error: 'wrong_parameter' }
+URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+⚠️ おむつ パンツ Mの検索でエラー: Error [AxiosError]: Request failed with status code 400
+    at aG (.next/server/chunks/541.js:1:40458)
+    at Unzip.<anonymous> (.next/server/chunks/541.js:3:9314)
+    at bK.request (.next/server/chunks/541.js:3:21252)
+    at async bO.searchDiapers (.next/server/chunks/541.js:3:26950)
+    at async j (.next/server/app/page.js:1:16815)
+    at async k (.next/server/app/page.js:1:19941)
+    at async l.getRealData (.next/server/app/page.js:1:20560)
+    at async l.getOffers (.next/server/app/page.js:1:20979)
+    at async o (.next/server/app/page.js:1:23786) {
+  code: 'ERR_BAD_REQUEST',
+  config: [Object],
+  request: [ClientRequest],
+  response: [Object],
+  status: 400,
+  constructor: [Function],
+  toJSON: [Function: toJSON]
+}
+🔍 検索キーワード: おむつ パンツ M
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ パンツ M',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+🔍 検索キーワード: おむつ パンツ L
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ パンツ L',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+❌ 楽天API呼び出しエラー:
+Status: 429
+Data: {
+  error_description: 'number of allowed requests has been exceeded for this API. please try again soon.',
+  error: 'too_many_requests'
+}
+URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+⚠️ おむつ パンツ Lの検索でエラー: Error [AxiosError]: Request failed with status code 429
+    at aG (.next/server/chunks/541.js:1:40458)
+    at Unzip.<anonymous> (.next/server/chunks/541.js:3:9314)
+    at bK.request (.next/server/chunks/541.js:3:21252)
+    at async bO.searchDiapers (.next/server/chunks/541.js:3:26950)
+    at async j (.next/server/app/page.js:1:16815)
+    at async k (.next/server/app/page.js:1:19941)
+    at async l.getRealData (.next/server/app/page.js:1:20560)
+    at async l.getOffers (.next/server/app/page.js:1:20979)
+    at async o (.next/server/app/page.js:1:23786) {
+  code: 'ERR_BAD_REQUEST',
+  config: [Object],
+  request: [ClientRequest],
+  response: [Object],
+  status: 429,
+  constructor: [Function],
+  toJSON: [Function: toJSON]
+}
+❌ 実データの取得に失敗: {
+  success: false,
+  totalItems: 0,
+  offers: [],
+  sources: { rakuten: 0, amazon: 0, errors: [] },
+  timestamp: '2025-09-09T02:59:28.495Z'
+}
+✅ 全キーワード合計: 1件取得
+🔍 楽天APIレスポンス構造: {
+  "affiliateRate": 4,
+  "affiliateUrl": "",
+  "asurakuArea": "",
+  "asurakuClosingTime": "",
+  "asurakuFlag": 0,
+  "availability": 1,
+  "catchcopy": "大人よりも敏感な赤ちゃんの肌を考えた敏感肌設計 赤ちゃん用 おむつ テープ式 グ〜ン 紙オムツ 紙おむつ 4902011842630",
+  "creditCardFlag": 1,
+  "endTime": "2025-09-09 07:00",
+  "genreId": "551632",
+  "giftFlag": 0,
+  "imageFlag": 1,
+  "itemCaption": "商品名：大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入内容量：2枚入JANコード：4902011842630発売元、製造元、輸入元又は販売元：大王製紙株式会社原産国：日本商品番号：101-31932商品説明・大人よりも敏感な赤ちゃんの肌を考えた敏感肌設計。・肌に触れる表面シートにエリエールゼイ沢保湿と同じ保湿成分を配合、やわらかくなめらかな肌触りでこすれ負担を軽減。・新改良！吸収スポットがゆるうんちやおしっこを瞬時に吸収、おむつ表面に残りにくいから肌にやさしい。・湿気を追い出しムレあんしん。・足回りふんわりフィットでモレあんしん。・背中ぴたっとガードで背モレあんしん。広告文責：アットライフ株式会社TEL 050-3196-1510 ※商品パッケージは変更の場合あり。メーカー欠品または完売の際、キャンセルをお願いすることがあります。ご了承ください。",
+  "itemCode": "at-life:12363013",
+  "itemName": "【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入",
+  "itemPrice": 78,
+  "itemPriceBaseField": "item_price_min3",
+  "itemPriceMax1": 78,
+  "itemPriceMax2": 78,
+  "itemPriceMax3": 78,
+  "itemPriceMin1": 78,
+  "itemPriceMin2": 78,
+  "itemPriceMin3": 78,
+  "itemUrl": "https://item.rakuten.co.jp/at-life/4902011842630-today/?rafcid=wsc_i_is_1062113837003868316",
+  "mediumImageUrls": [
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/2021c/4902011842630.jpg?_ex=128x128",
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/package_henko.jpg?_ex=128x128"
+  ],
+  "pointRate": 1,
+  "pointRateEndTime": "",
+  "pointRateStartTime": "",
+  "postageFlag": 1,
+  "reviewAverage": 0,
+  "reviewCount": 0,
+  "shipOverseasArea": "ワールドワイド",
+  "shipOverseasFlag": 1,
+  "shopAffiliateUrl": "",
+  "shopCode": "at-life",
+  "shopName": "姫路流通センター",
+  "shopOfTheYearFlag": 0,
+  "shopUrl": "https://www.rakuten.co.jp/at-life/?rafcid=wsc_i_is_1062113837003868316",
+  "smallImageUrls": [
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/2021c/4902011842630.jpg?_ex=64x64",
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/package_henko.jpg?_ex=64x64"
+  ],
+  "startTime": "2025-09-08 10:00",
+  "tagIds": [
+    1012524
+  ],
+  "taxFlag": 0
+}
+✅ 重複除去後: 1件
+📊 商品分析: 【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入... | 2枚 | ¥78 | 単価¥38.50/枚
+🚫 品質フィルタで除外: 【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入... | 2枚 | ¥38.50/枚
+✅ クライアントサイド収集完了: 0件
+🔍 getRealData結果: 0件
+🔍 実データが0件のためサンプルデータにフォールバック
+📝 サンプルデータを使用: 40件
+🔍 フィルタリング前: 40件
+🔍 最終表示件数: 40件 (maxItems: 50)
+ ✓ Generating static pages (5/5)
+   Finalizing page optimization ...
+   Collecting build traces ...

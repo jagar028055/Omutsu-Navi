@@ -1,0 +1,300 @@
+
+> omutsu-navi@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.2
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 27.1s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/5) ...
+🔍 getOffers呼び出し: useRealData=true
+🌐 実データを取得中... (サーバー&クライアント対応)
+🚀 クライアントサイドでデータ収集を開始
+🏗️ ビルド時に楽天APIから実データを取得中...
+🔍 検索キーワード: パンパース テープ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'パンパース テープ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+(node:5679) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+   Generating static pages (1/5) 
+   Generating static pages (2/5) 
+   Generating static pages (3/5) 
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: パンパース パンツ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'パンパース パンツ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: メリーズ テープ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'メリーズ テープ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: メリーズ パンツ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'メリーズ パンツ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ メリーズ パンツ: 8件取得
+🚫 除外された商品: メリーズ ファーストプレミアム ビッグサイズ（32枚入）＜メリーズファーストプレミアムビッグ32枚＞ 販売促進商品 販促 景品 イベント用品 法人ギフト 賞品 低額ギフト
+🚫 除外された商品: メリーズ エアスルー パンツ Mサイズ52枚 販売促進商品 販促 景品 イベント用品 法人ギフト 賞品 低額ギフト
+🚫 除外された商品: メリーズ エアスルー パンツ Sサイズ 62枚 販売促進商品 販促 景品 イベント用品 法人ギフト 賞品 低額ギフト
+🚫 除外された商品: メリーズ エアスルー パンツ Lサイズ44枚＜メリーズ エアスルーパンツLサイズ44枚＞ 販売促進商品 販促 景品 イベント用品 法人ギフト 賞品 低額ギフト
+🚫 除外された商品: 敬老の日ギフト 敬老会などに「メリーズ　ファーストプレミアム　パンツ　ビッグサイズ（32枚）」お返し 内祝い 内祝 お祝い 祝い 出産 結婚 仏事 快気 お見舞い 香典返し 新築 ギフト セット
+🚫 除外された商品: 敬老の日ギフト 敬老会などに「メリーズ　エアスルー　パンツ　Mサイズ（52枚）」お返し 内祝い 内祝 お祝い 祝い 出産 結婚 仏事 快気 お見舞い 香典返し 新築 ギフト セット
+🚫 除外された商品: 敬老の日ギフト 敬老会などに「メリーズ　エアスルー　パンツ　Lサイズ（44枚）」お返し 内祝い 内祝 お祝い 祝い 出産 結婚 仏事 快気 お見舞い 香典返し 新築 ギフト セット
+🚫 除外された商品: 敬老の日ギフト 敬老会などに「メリーズ　エアスルー　パンツ　Sサイズ（62枚）」お返し 内祝い 内祝 お祝い 祝い 出産 結婚 仏事 快気 お見舞い 香典返し 新築 ギフト セット
+🔍 検索キーワード: ムーニー テープ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'ムーニー テープ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: ムーニー パンツ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'ムーニー パンツ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ ムーニー パンツ: 9件取得
+✅ 有効な商品: 【姫流12周年セール】 【子供用オムツ】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+✅ 有効な商品: 【週替わり特価F】ムーニー オヤスミマン 女の子用 22枚 ビッグ以上
+✅ 有効な商品: 【子供用オムツ特売】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+✅ 有効な商品: 【夜の市★合算2千円超で送料無料対象】【子供用オムツ特売】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+✅ 有効な商品: 【送料込・まとめ買い×2点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+✅ 有効な商品: 【送料込・まとめ買い×3】ユニ・チャーム ムーニー オヤスミマン 女の子用 ビッグ以上 22枚×3点セット 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※商品パッケージは予告なく変更の場合あり
+✅ 有効な商品: 【送料込・まとめ買い×4点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+✅ 有効な商品: 【送料込・まとめ買い×6点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+✅ 有効な商品: 【送料込・まとめ買い×8点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり
+🔍 検索キーワード: ゲンキ おむつ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'ゲンキ おむつ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: グーン おむつ
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'グーン おむつ',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ グーン おむつ: 4件取得
+✅ 有効な商品: 【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入
+✅ 有効な商品: 【パンツ スーパーBIGサイズ】 グーン ナイトジュニア パンツ (身長目安 110~140cm) 14枚 男女共用 夜用おむつ [うつぶせ寝モレに強い]
+✅ 有効な商品: 【パンツ BIGより大きいサイズ】 グーン ナイトキッズ パンツ (身長目安 90~120cm) 22枚 男女共用 夜用おむつ [うつぶせ寝モレに強い]
+✅ 有効な商品: 【スーパーSALE P5倍】 グーン ナイト ジュニアパンツ 14枚入り グーン キッズ用品 おむつ 紙オムツ パンツ 夜用 トイレ もれない おねしょ 吸収性 男女兼用 男の子 女の子 エリエール GOON 人気 ランキング おすすめ
+🔍 検索キーワード: おむつ 84枚
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ 84枚',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: おむつ 82枚
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ 82枚',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ おむつ 82枚: 1件取得
+🚫 除外された商品: 【メール便送料無料】Disney PIXAR ディズニー ピクサー トイストーリー 3層トレーニングパンツ 新柄 3枚組 防水加工 トレパン 3P トイレトレーニング おむつはずし トイトレ 男の子 男児 かわいい キャラクター パンツ ベビー用品 プレゼント(215105384-82 tk190025)
+🔍 検索キーワード: おむつ 76枚
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ 76枚',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+🔍 検索キーワード: おむつ 64枚
+🔍 楽天APIリクエスト URL: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601
+🔍 楽天APIリクエスト パラメータ: {
+  applicationId: '1062113837003868316',
+  keyword: 'おむつ 64枚',
+  page: 1,
+  hits: 30,
+  sort: '+itemPrice',
+  genreId: '200807',
+  formatVersion: 2
+}
+✅ 楽天APIレスポンス成功: 200
+✅ 全キーワード合計: 13件取得
+🔍 楽天APIレスポンス構造: {
+  "affiliateRate": 4,
+  "affiliateUrl": "",
+  "asurakuArea": "",
+  "asurakuClosingTime": "",
+  "asurakuFlag": 0,
+  "availability": 1,
+  "catchcopy": "昼間のオムツを卒業したお子様に合わせた夜用おむつです。まるで下着のようなドット柄を採用",
+  "creditCardFlag": 1,
+  "endTime": "2025-10-01 00:00",
+  "genreId": "551632",
+  "giftFlag": 0,
+  "imageFlag": 1,
+  "itemCaption": "　ムーニー オヤスミマン 女の子用 ビッグ以上 22枚ブランド：オヤスミマン販売・製造元：ユニ・チャーム昼間のオムツを卒業したお子様に合わせた夜用おむつです。まるで下着のようなドット柄を採用。パワフル吸収を採用しているので、一晩中のおしっこにも安心です。 適応体重13-25kg ベビー＆キッズ／おむつ／紙おむつ／夜用おむつJANコード： 4903111211807広告文責：アットライフ株式会社TEL 050-3196-1510※商品パッケージは変更の場合あり。メーカー欠品または完売の際、キャンセルをお願いすることがあります。ご了承ください。⇒その他のオヤスミマンはこちら",
+  "itemCode": "at-life:10322773",
+  "itemName": "【姫流12周年セール】 【子供用オムツ】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：13-25kg 昼間のオムツを卒業したお子様に合わせた夜用おむつ ( 4903111211807 )※パッケージ変更の場合あり",
+  "itemPrice": 1476,
+  "itemPriceBaseField": "item_price_min3",
+  "itemPriceMax1": 1476,
+  "itemPriceMax2": 1476,
+  "itemPriceMax3": 1476,
+  "itemPriceMin1": 1476,
+  "itemPriceMin2": 1476,
+  "itemPriceMin3": 1476,
+  "itemUrl": "https://item.rakuten.co.jp/at-life/4903111211807-kksale/?rafcid=wsc_i_is_1062113837003868316",
+  "mediumImageUrls": [
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/ebase-a01/4903111211807.jpg?_ex=128x128",
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/ebase-b01/4903111211807_1.jpg?_ex=128x128",
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/renewal02/4903111211807.jpg?_ex=128x128"
+  ],
+  "pointRate": 1,
+  "pointRateEndTime": "",
+  "pointRateStartTime": "",
+  "postageFlag": 1,
+  "reviewAverage": 5,
+  "reviewCount": 1,
+  "shipOverseasArea": "ワールドワイド",
+  "shipOverseasFlag": 1,
+  "shopAffiliateUrl": "",
+  "shopCode": "at-life",
+  "shopName": "姫路流通センター",
+  "shopOfTheYearFlag": 0,
+  "shopUrl": "https://www.rakuten.co.jp/at-life/?rafcid=wsc_i_is_1062113837003868316",
+  "smallImageUrls": [
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/ebase-a01/4903111211807.jpg?_ex=64x64",
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/ebase-b01/4903111211807_1.jpg?_ex=64x64",
+    "https://thumbnail.image.rakuten.co.jp/@0_mall/at-life/cabinet/renewal02/4903111211807.jpg?_ex=64x64"
+  ],
+  "startTime": "2025-09-01 00:00",
+  "tagIds": [
+    1008019,
+    1012682,
+    1013753,
+    1003789
+  ],
+  "taxFlag": 0
+}
+✅ 重複除去後: 13件
+📊 商品分析: 【姫流12周年セール】 【子供用オムツ】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビ... | 22枚 | ¥1476 | 単価¥66.41/枚
+📊 商品分析: 【週替わり特価F】ムーニー オヤスミマン 女の子用 22枚 ビッグ以上... | 22枚 | ¥1588 | 単価¥71.45/枚
+📊 商品分析: 【子供用オムツ特売】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：... | 22枚 | ¥1768 | 単価¥79.55/枚
+📊 商品分析: 【夜の市★合算2千円超で送料無料対象】【子供用オムツ特売】ユニ・チャーム ムーニー オヤスミマン 女... | 22枚 | ¥1965 | 単価¥88.41/枚
+📊 商品分析: 【送料込・まとめ買い×2点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥4046 | 単価¥182.09/枚
+📊 商品分析: 【送料込・まとめ買い×3】ユニ・チャーム ムーニー オヤスミマン 女の子用 ビッグ以上 22枚×3点... | 22枚 | ¥5766 | 単価¥259.45/枚
+📊 商品分析: 【送料込・まとめ買い×4点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥7487 | 単価¥350.55/枚
+📊 商品分析: 【送料込・まとめ買い×6点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥10927 | 単価¥505.36/枚
+📊 商品分析: 【送料込・まとめ買い×8点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥14368 | 単価¥660.18/枚
+📊 商品分析: 【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入... | 2枚 | ¥78 | 単価¥38.50/枚
+📊 商品分析: 【パンツ スーパーBIGサイズ】 グーン ナイトジュニア パンツ (身長目安 110~140cm) ... | 14枚 | ¥1816 | 単価¥149.86/枚
+📊 商品分析: 【パンツ BIGより大きいサイズ】 グーン ナイトキッズ パンツ (身長目安 90~120cm) 2... | 22枚 | ¥2066 | 単価¥106.59/枚
+📊 商品分析: 【スーパーSALE P5倍】 グーン ナイト ジュニアパンツ 14枚入り グーン キッズ用品 おむつ... | 14枚 | ¥2435 | 単価¥193.64/枚
+✅ 品質フィルタ通過: 【姫流12周年セール】 【子供用オムツ】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビ... | 22枚 | ¥66.41/枚
+✅ 品質フィルタ通過: 【週替わり特価F】ムーニー オヤスミマン 女の子用 22枚 ビッグ以上... | 22枚 | ¥71.45/枚
+✅ 品質フィルタ通過: 【子供用オムツ特売】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以上 適応体重：... | 22枚 | ¥79.55/枚
+✅ 品質フィルタ通過: 【夜の市★合算2千円超で送料無料対象】【子供用オムツ特売】ユニ・チャーム ムーニー オヤスミマン 女... | 22枚 | ¥88.41/枚
+✅ 品質フィルタ通過: 【送料込・まとめ買い×2点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥182.09/枚
+✅ 品質フィルタ通過: 【送料込・まとめ買い×3】ユニ・チャーム ムーニー オヤスミマン 女の子用 ビッグ以上 22枚×3点... | 22枚 | ¥259.45/枚
+✅ 品質フィルタ通過: 【送料込・まとめ買い×4点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥350.55/枚
+🚫 品質フィルタで除外: 【送料込・まとめ買い×6点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥505.36/枚
+🚫 品質フィルタで除外: 【送料込・まとめ買い×8点セット】ユニ・チャーム ムーニー オヤスミマン 女の子用 22枚 ビッグ以... | 22枚 | ¥660.18/枚
+🚫 品質フィルタで除外: 【最大半額！令和セール】大王製紙 エリエール グーンプラス 敏感肌設計 Sサイズ 2枚入... | 2枚 | ¥38.50/枚
+✅ 品質フィルタ通過: 【パンツ スーパーBIGサイズ】 グーン ナイトジュニア パンツ (身長目安 110~140cm) ... | 14枚 | ¥149.86/枚
+✅ 品質フィルタ通過: 【パンツ BIGより大きいサイズ】 グーン ナイトキッズ パンツ (身長目安 90~120cm) 2... | 22枚 | ¥106.59/枚
+✅ 品質フィルタ通過: 【スーパーSALE P5倍】 グーン ナイト ジュニアパンツ 14枚入り グーン キッズ用品 おむつ... | 14枚 | ¥193.64/枚
+✅ クライアントサイド収集完了: 10件
+✅ 実データ取得成功: 10件
+🔍 getRealData結果: 10件
+🎯 実データを使用: 10件 (変換後)
+🔍 フィルタリング前: 10件
+🔍 最終表示件数: 10件 (maxItems: 50)
+ ✓ Generating static pages (5/5)
+   Finalizing page optimization ...
+   Collecting build traces ...
+   Exporting (0/2) ...
+ ✓ Exporting (2/2)
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    6.85 kB         109 kB
+└ ○ /_not-found                            998 B         103 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-2306f417eefffe96.js         46 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.97 kB
+
+
+○  (Static)  prerendered as static content
+

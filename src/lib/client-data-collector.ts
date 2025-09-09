@@ -33,13 +33,11 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     const { RakutenAPI } = await import('../lib/data-fetchers/rakuten-api')
     const rakuten = new RakutenAPI(applicationId)
     
-    // APIレート制限対応：確実に結果が出るキーワードを選択
+    // 楽天APIで確実に結果が出るキーワード
     const searchKeywords = [
-      'パンパース',
-      'メリーズ',
-      'ムーニー',
-      'ゲンキ',
-      'グーン'
+      'おむつ',
+      'オムツ',
+      '紙おむつ'
     ]
     
     const allResults: any[] = []
