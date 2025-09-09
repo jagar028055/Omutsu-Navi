@@ -34,6 +34,12 @@ body {
   border-color: var(--primary);
 }
 
+@media (max-width: 640px) {
+  .card-pop:hover {
+    transform: none;
+  }
+}
+
 .card-active {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: white;

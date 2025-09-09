@@ -43,67 +43,67 @@ export default function OfferCard({ offer, rank }: OfferCardProps) {
   
   return (
     <div className="card-pop rounded-mama p-6 hover:scale-[1.02] transition-all duration-300">
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
         <div className="flex-1">
-          <div className="flex items-center gap-3 mb-4">
-            <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold border-2 ${getRankBadgeColor(rank)}`}>
+          <div className="flex flex-wrap items-center gap-2 mb-4">
+            <span className={`inline-flex items-center px-3 py-2 rounded-full text-sm font-bold border-2 ${getRankBadgeColor(rank)}`}>
               {getRankEmoji(rank)} 第{rank}位
             </span>
-            <span className="text-lg font-bold text-mama-primary">
+            <span className="text-base sm:text-lg font-bold text-mama-primary">
               {getStoreEmoji(offer.store.slug)} {offer.store.name}
             </span>
             {offer.isSubscription && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-mama-gradient text-white">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm font-semibold bg-mama-gradient text-white">
                 📦 定期便
               </span>
             )}
           </div>
 
-          <h3 className="text-xl font-bold text-mama-primary mb-3">
+          <h3 className="text-lg sm:text-xl font-bold text-mama-primary mb-3">
             💕 {offer.product.brand} {offer.product.series} 💕
           </h3>
           
-          <div className="flex items-center gap-4 text-sm font-semibold text-mama-secondary mb-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm font-semibold text-mama-secondary mb-4">
             <span>📏 サイズ: {offer.product.size}</span>
             <span>🔗 {offer.product.type === 'TAPE' ? 'テープ' : 'パンツ'}</span>
             <span>📦 {offer.product.packSizeMin}枚入り</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="card-pop rounded-mama p-4 bg-gradient-to-br from-pink-50 to-purple-50">
               <dt className="text-xs font-bold text-mama-primary uppercase tracking-wide mb-2">💰 実質単価</dt>
-              <dd className="text-3xl font-bold text-mama-primary">
+              <dd className="text-2xl sm:text-3xl font-bold text-mama-primary">
                 {calcSnapshot ? formatYenPerSheet(calcSnapshot.yenPerSheet) : '---'}
-                <span className="text-sm font-normal text-gray-500">/枚</span>
+                <span className="text-xs sm:text-sm font-normal text-gray-500">/枚</span>
               </dd>
             </div>
             <div className="card-pop rounded-mama p-4 bg-gradient-to-br from-blue-50 to-cyan-50">
               <dt className="text-xs font-bold text-mama-secondary uppercase tracking-wide mb-2">💵 実質合計</dt>
-              <dd className="text-2xl font-bold text-mama-secondary">
+              <dd className="text-xl sm:text-2xl font-bold text-mama-secondary">
                 {calcSnapshot ? formatPrice(calcSnapshot.effectiveTotal) : '---'}
               </dd>
             </div>
           </div>
 
           <div className="card-pop rounded-mama p-4 bg-gradient-to-r from-gray-50 to-gray-100 mb-4">
-            <div className="flex items-center gap-3 text-sm font-semibold flex-wrap">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold flex-wrap">
               <span className="text-mama-primary">💴 {formatPrice(offer.price)}</span>
               {offer.coupon > 0 && (
-                <span className="text-red-600 bg-red-100 px-2 py-1 rounded-full">🎫 -{formatPrice(offer.coupon)}</span>
+                <span className="text-red-600 bg-red-100 px-2 py-1 rounded-full text-xs">🎫 -{formatPrice(offer.coupon)}</span>
               )}
               {offer.shipping > 0 && (
-                <span className="text-orange-600 bg-orange-100 px-2 py-1 rounded-full">🚚 +{formatPrice(offer.shipping)}</span>
+                <span className="text-orange-600 bg-orange-100 px-2 py-1 rounded-full text-xs">🚚 +{formatPrice(offer.shipping)}</span>
               )}
               {calcSnapshot && calcSnapshot.pointsYen > 0 && (
-                <span className="text-green-600 bg-green-100 px-2 py-1 rounded-full">⭐ -{formatPrice(calcSnapshot.pointsYen)}</span>
+                <span className="text-green-600 bg-green-100 px-2 py-1 rounded-full text-xs">⭐ -{formatPrice(calcSnapshot.pointsYen)}</span>
               )}
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <button
               onClick={() => setShowEvidence(!showEvidence)}
-              className="text-sm font-semibold text-mama-primary hover:text-mama-secondary transition-colors duration-200"
+              className="text-xs sm:text-sm font-semibold text-mama-primary hover:text-mama-secondary transition-colors duration-200 text-left"
             >
               {showEvidence ? '🙈 根拠を隠す' : '🔍 計算根拠を表示'}
             </button>
@@ -119,15 +119,15 @@ export default function OfferCard({ offer, rank }: OfferCardProps) {
           </div>
         </div>
 
-        <div className="ml-6 flex-shrink-0">
+        <div className="flex-shrink-0 w-full lg:w-auto lg:ml-6">
           <a
             href={offer.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-mama rounded-mama px-6 py-4 text-lg font-bold inline-flex items-center"
+            className="w-full btn-mama rounded-mama px-6 py-4 text-base sm:text-lg font-bold inline-flex items-center justify-center min-h-[50px]"
           >
             🛒 ストアで確認
-            <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="ml-2 -mr-1 w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </a>

@@ -69,7 +69,7 @@ export default function FilterPanel() {
           <h3 className="text-lg font-semibold text-mama-primary mb-3 text-center">
             サイズを選んでね！
           </h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {SIZES.map((size) => (
               <button
                 key={size.value}
@@ -92,7 +92,7 @@ export default function FilterPanel() {
           <h3 className="text-lg font-semibold text-mama-primary mb-3 text-center">
             タイプを選んでね！
           </h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {TYPES.map((type) => (
               <button
                 key={type.value}
@@ -115,7 +115,7 @@ export default function FilterPanel() {
           <h3 className="text-lg font-semibold text-mama-primary mb-3 text-center">
             ブランドを選んでね！
           </h3>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {BRANDS.map((brand) => (
               <button
                 key={brand.value}
@@ -205,16 +205,16 @@ export default function FilterPanel() {
         </div>
 
         {/* ボタン */}
-        <div className="flex space-x-3 pt-2">
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <button
             onClick={applyFilters}
-            className="flex-1 btn-mama rounded-mama py-4 px-6 font-bold text-lg"
+            className="flex-1 btn-mama rounded-mama py-4 px-6 font-bold text-lg min-h-[50px]"
           >
             💕 検索する 💕
           </button>
           <button
             onClick={clearFilters}
-            className="px-6 py-4 border-2 border-pink-200 text-mama-primary font-semibold rounded-mama hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all duration-300"
+            className="px-6 py-4 border-2 border-pink-200 text-mama-primary font-semibold rounded-mama hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all duration-300 min-h-[50px]"
           >
             🗑️ クリア
           </button>
