@@ -33,21 +33,22 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     const { RakutenAPI } = await import('../lib/data-fetchers/rakuten-api')
     const rakuten = new RakutenAPI(applicationId)
     
-    // より多くのおむつを取得するためのキーワード
+    // 通常の商品が見つかりやすいキーワード
     const searchKeywords = [
-      'パンパース テープ',
-      'パンパース パンツ', 
-      'メリーズ テープ',
-      'メリーズ パンツ',
-      'ムーニー テープ',
-      'ムーニー パンツ',
-      'ゲンキ テープ',
-      'ゲンキ パンツ',
-      'グーン テープ',
-      'グーン パンツ',
-      'おむつ S',
-      'おむつ M',
-      'おむつ L'
+      'パンパース はじめての肌へのいちばん',
+      'パンパース さらさらケア',
+      'メリーズ さらさらエアスルー',
+      'メリーズ ファーストプレミアム',
+      'ムーニー エアフィット',
+      'ムーニー ナチュラルムーニー',
+      'ゲンキ アンパンマン',
+      'グーン まっさらあんしん',
+      'グーン プラス',
+      'おむつ テープ NB',
+      'おむつ テープ S',
+      'おむつ テープ M',
+      'おむつ パンツ M',
+      'おむつ パンツ L'
     ]
     
     const allResults: any[] = []
@@ -67,30 +68,33 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
           const filteredItems = response.Items
             .filter((item: any) => item && item.itemName) // 有効なアイテムのみ
             .filter((item: any) => {
-              // おむつ関連商品のみ - より厳密なフィルタリング
+              // おむつ関連商品のみ - 基本的なフィルタリング
               const name = item.itemName.toLowerCase()
               const isOmustu = name.includes('おむつ') || name.includes('オムツ')
               const isBrandDiaper = name.includes('メリーズ') || name.includes('パンパース') || 
                                    name.includes('ムーニー') || name.includes('ゲンキ') || 
                                    name.includes('グーン')
               
-              // 明らかにおむつ以外の商品のみ除外（緩い条件に変更）
+              // 基本的な除外条件のみ - ギフト系、夜用、明らかな非おむつ商品のみ除外
               const isExcluded = name.includes('おしりふき') || name.includes('お尻ふき') ||
                                 name.includes('ミルク') || name.includes('離乳食') ||
                                 name.includes('よだれ') || name.includes('タオル') ||
                                 name.includes('トレーニングパンツ') || name.includes('トレパン') ||
-                                name.includes('おねしょ') || name.includes('防水シーツ') ||
-                                name.includes('腹巻') || name.includes('ケット') ||
-                                (name.includes('ズボン') && !name.includes('おむつ')) ||
-                                name.includes('パジャマ') || 
-                                (name.includes('下着') && !name.includes('おむつ')) ||
-                                name.includes('補助便座') || name.includes('おまる')
+                                name.includes('補助便座') || name.includes('おまる') ||
+                                name.includes('オヤスミマン') || name.includes('ナイト') || // 夜用おむつ除外
+                                name.includes('夜用') || name.includes('ジュニア') || // その他の夜用
+                                name.includes('販売促進') || name.includes('販促') || name.includes('景品') || // ギフト・販促品除外
+                                name.includes('法人ギフト') || name.includes('賞品') || 
+                                name.includes('内祝') || name.includes('お返し') || name.includes('ギフト') ||
+                                name.includes('敬老の日') || name.includes('お中元') || name.includes('お歳暮')
               
               const isValid = (isOmustu || isBrandDiaper) && !isExcluded
               
               // デバッグログ追加
-              if (!isValid && (isOmustu || isBrandDiaper)) {
+              if (!isValid) {
                 console.log(`🚫 除外された商品: ${item.itemName}`)
+              } else {
+                console.log(`✅ 有効な商品: ${item.itemName}`)
               }
               
               return isValid
@@ -207,19 +211,20 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
           }
         })
         .filter(item => {
-          // 緩い品質フィルタ（明らかに異常なもののみ除外）
-          const isValidPrice = item.price > 0
-          const isValidPackSize = item.packSize >= 10 && item.packSize <= 300 // 10-300枚の範囲（より広く）
-          const isValidUnitPrice = item.yenPerSheet >= 3 && item.yenPerSheet <= 200 // 1枚3-200円の範囲（より広く）
+          // 最低限の品質フィルタ（明らかに異常なもののみ除外）
+          const isValidPrice = item.price > 0 && item.price < 50000 // 5万円以下
+          const isValidPackSize = item.packSize >= 5 && item.packSize <= 500 // 5-500枚の範囲（かなり広く）
+          const isValidUnitPrice = item.yenPerSheet >= 1 && item.yenPerSheet <= 500 // 1枚1-500円の範囲（かなり広く）
           const isNotObviousSample = !item.title.toLowerCase().includes('サンプル') && 
                                     !item.title.toLowerCase().includes('お試し') &&
-                                    !item.title.toLowerCase().includes('試供品') &&
-                                    item.packSize >= 15 // 15枚未満は除外
+                                    !item.title.toLowerCase().includes('試供品')
           
           const isValid = isValidPrice && isValidPackSize && isValidUnitPrice && isNotObviousSample
           
           if (!isValid) {
             console.log(`🚫 品質フィルタで除外: ${item.title.substring(0, 50)}... | ${item.packSize}枚 | ¥${item.yenPerSheet.toFixed(2)}/枚`)
+          } else {
+            console.log(`✅ 品質フィルタ通過: ${item.title.substring(0, 50)}... | ${item.packSize}枚 | ¥${item.yenPerSheet.toFixed(2)}/枚`)
           }
           
           return isValid
