@@ -33,15 +33,21 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     const { RakutenAPI } = await import('../lib/data-fetchers/rakuten-api')
     const rakuten = new RakutenAPI(applicationId)
     
-    // 複数ブランドとキーワードで検索
+    // より多くのおむつを取得するためのキーワード
     const searchKeywords = [
-      'メリーズ おむつ',
-      'パンパース おむつ', 
-      'ムーニー おむつ',
-      'ゲンキ おむつ',
-      'グーン おむつ',
-      'おむつ テープ',
-      'おむつ パンツ'
+      'パンパース テープ',
+      'パンパース パンツ', 
+      'メリーズ テープ',
+      'メリーズ パンツ',
+      'ムーニー テープ',
+      'ムーニー パンツ',
+      'ゲンキ テープ',
+      'ゲンキ パンツ',
+      'グーン テープ',
+      'グーン パンツ',
+      'おむつ S',
+      'おむつ M',
+      'おむつ L'
     ]
     
     const allResults: any[] = []
@@ -68,20 +74,17 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
                                    name.includes('ムーニー') || name.includes('ゲンキ') || 
                                    name.includes('グーン')
               
-              // おむつ以外の育児用品を除外（より厳密に）
+              // 明らかにおむつ以外の商品のみ除外（緩い条件に変更）
               const isExcluded = name.includes('おしりふき') || name.includes('お尻ふき') ||
                                 name.includes('ミルク') || name.includes('離乳食') ||
                                 name.includes('よだれ') || name.includes('タオル') ||
-                                name.includes('オヤスミマン') || name.includes('ナイト') || // 夜用おむつは除外
-                                name.includes('トイレトレーニング') || name.includes('補助便座') ||
-                                name.includes('おまる') || name.includes('便座') ||
-                                name.includes('シート') && !name.includes('おむつ') ||
                                 name.includes('トレーニングパンツ') || name.includes('トレパン') ||
-                                name.includes('おねしょ') || name.includes('防水') ||
+                                name.includes('おねしょ') || name.includes('防水シーツ') ||
                                 name.includes('腹巻') || name.includes('ケット') ||
-                                name.includes('ズボン') && !name.includes('おむつ') ||
-                                name.includes('パジャマ') || name.includes('下着') ||
-                                name.includes('ガーゼ') || name.includes('コットン')
+                                (name.includes('ズボン') && !name.includes('おむつ')) ||
+                                name.includes('パジャマ') || 
+                                (name.includes('下着') && !name.includes('おむつ')) ||
+                                name.includes('補助便座') || name.includes('おまる')
               
               const isValid = (isOmustu || isBrandDiaper) && !isExcluded
               
@@ -204,15 +207,16 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
           }
         })
         .filter(item => {
-          // 品質フィルタ
+          // 緩い品質フィルタ（明らかに異常なもののみ除外）
           const isValidPrice = item.price > 0
-          const isValidPackSize = item.packSize >= 20 && item.packSize <= 200 // 20-200枚の範囲
-          const isValidUnitPrice = item.yenPerSheet >= 5 && item.yenPerSheet <= 100 // 1枚5-100円の範囲
-          const isNotSample = !item.title.toLowerCase().includes('サンプル') && 
-                             !item.title.toLowerCase().includes('お試し') &&
-                             !item.title.toLowerCase().includes('試供品')
+          const isValidPackSize = item.packSize >= 10 && item.packSize <= 300 // 10-300枚の範囲（より広く）
+          const isValidUnitPrice = item.yenPerSheet >= 3 && item.yenPerSheet <= 200 // 1枚3-200円の範囲（より広く）
+          const isNotObviousSample = !item.title.toLowerCase().includes('サンプル') && 
+                                    !item.title.toLowerCase().includes('お試し') &&
+                                    !item.title.toLowerCase().includes('試供品') &&
+                                    item.packSize >= 15 // 15枚未満は除外
           
-          const isValid = isValidPrice && isValidPackSize && isValidUnitPrice && isNotSample
+          const isValid = isValidPrice && isValidPackSize && isValidUnitPrice && isNotObviousSample
           
           if (!isValid) {
             console.log(`🚫 品質フィルタで除外: ${item.title.substring(0, 50)}... | ${item.packSize}枚 | ¥${item.yenPerSheet.toFixed(2)}/枚`)
