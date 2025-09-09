@@ -33,22 +33,13 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
     const { RakutenAPI } = await import('../lib/data-fetchers/rakuten-api')
     const rakuten = new RakutenAPI(applicationId)
     
-    // 通常の商品が見つかりやすいキーワード
+    // APIレート制限対応：確実に結果が出るキーワードを選択
     const searchKeywords = [
-      'パンパース はじめての肌へのいちばん',
-      'パンパース さらさらケア',
-      'メリーズ さらさらエアスルー',
-      'メリーズ ファーストプレミアム',
-      'ムーニー エアフィット',
-      'ムーニー ナチュラルムーニー',
-      'ゲンキ アンパンマン',
-      'グーン まっさらあんしん',
-      'グーン プラス',
-      'おむつ テープ NB',
-      'おむつ テープ S',
-      'おむつ テープ M',
-      'おむつ パンツ M',
-      'おむつ パンツ L'
+      'パンパース',
+      'メリーズ',
+      'ムーニー',
+      'ゲンキ',
+      'グーン'
     ]
     
     const allResults: any[] = []
@@ -83,6 +74,7 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
                                 name.includes('補助便座') || name.includes('おまる') ||
                                 name.includes('オヤスミマン') || name.includes('ナイト') || // 夜用おむつ除外
                                 name.includes('夜用') || name.includes('ジュニア') || // その他の夜用
+                                name.includes('スイミング') || name.includes('水遊び') || // 水遊び用除外
                                 name.includes('販売促進') || name.includes('販促') || name.includes('景品') || // ギフト・販促品除外
                                 name.includes('法人ギフト') || name.includes('賞品') || 
                                 name.includes('内祝') || name.includes('お返し') || name.includes('ギフト') ||
@@ -103,8 +95,8 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
           allResults.push(...filteredItems)
         }
         
-        // API制限対策：リクエスト間隔を空ける
-        await new Promise(resolve => setTimeout(resolve, 500))
+        // API制限対策：リクエスト間隔を長めに空ける
+        await new Promise(resolve => setTimeout(resolve, 1000))
         
       } catch (error) {
         console.warn(`⚠️ ${keyword}の検索でエラー:`, error)
@@ -213,7 +205,7 @@ async function fetchRakutenData(applicationId: string): Promise<any[]> {
         .filter(item => {
           // 最低限の品質フィルタ（明らかに異常なもののみ除外）
           const isValidPrice = item.price > 0 && item.price < 50000 // 5万円以下
-          const isValidPackSize = item.packSize >= 5 && item.packSize <= 500 // 5-500枚の範囲（かなり広く）
+          const isValidPackSize = item.packSize >= 1 && item.packSize <= 500 // 1-500枚の範囲（お試し品も含む）
           const isValidUnitPrice = item.yenPerSheet >= 1 && item.yenPerSheet <= 500 // 1枚1-500円の範囲（かなり広く）
           const isNotObviousSample = !item.title.toLowerCase().includes('サンプル') && 
                                     !item.title.toLowerCase().includes('お試し') &&
