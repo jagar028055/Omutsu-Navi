@@ -27,7 +27,15 @@ export default async function OfferRanking() {
       types: filters.type ? [filters.type] : undefined,
       maxItems: 50
     });
-    const stats = getProductStats();
+    
+    // 実際のオファーから統計を計算
+    const uniqueProducts = new Set(offers.map(offer => offer.product.brand + offer.product.series + offer.product.size)).size;
+    const uniqueStores = new Set(offers.map(offer => offer.store.slug)).size;
+    const stats = {
+      productCount: uniqueProducts,
+      offerCount: offers.length,
+      storeCount: uniqueStores,
+    };
     
     if (!offers || offers.length === 0) {
       return (
